@@ -11,7 +11,7 @@
 
 ## 📸 Screenshot
 
-![Preview] : [View Online Example](https://dakhama-mehdi.github.io/LAPS-Delegation-Audit/LapsDC.html)
+![Preview] : [View Online Example](https://dakhama-mehdi.github.io/LAPS-Delegation-Audit/Example/LapsDC.html)
 
 ## 📦 Usage
 
