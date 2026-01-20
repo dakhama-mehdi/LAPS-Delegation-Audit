@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LAPS Audit Report</title>
+<style>
+body { font-family: sans-serif; margin: 20px; background: #f9f9f9; }
+h1 { margin-bottom: 30px; }
+.banner-container {
+  display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px;
+}
+.banner {
+  background-color: #4CAF50; color: white; padding: 20px;
+  flex: 1; min-width: 150px; border-radius: 10px; text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.banner.red { background-color: #f44336; }
+.banner.orange { background-color: #ff9800; }
+.banner.blue { background-color: #2196f3; }
+a.viewlink {
+  display: inline-block; margin: 10px 0 10px 0; color: #007bff;
+  text-decoration: underline; cursor: pointer;
+}
+table {
+  width: 100%; border-collapse: collapse; margin-top: 10px;
+}
+th, td {
+  padding: 8px 12px; border: 1px solid #ccc;
+}
+th {
+  background: #333; color: white;
+}
+</style>
+<script>
+function toggleVisibility(id) {
+  var section = document.getElementById(id);
+  section.style.display = (section.style.display === "none") ? "block" : "none";
+}
+</script>
+</head>
+
+<body>
+
+<div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 16px;">
+  <div>
+    <h1 style="margin: 0;">Legacy LAPS Delegation Audit</h1>
+    <p style="margin: 0; font-size: 14px; color: #666;">Domain: <strong>info.lab</strong></p>
+    <p style="margin: 0; font-size: 14px; color: #666;">Scope: <strong>All domain</strong></p>
+  </div>
+  <div style="text-align: right; font-size: 13px; color: #666;">
+    <div style="padding: 4px 8px; border-radius: 4px; display: inline-block;">
+      Report date : 01/20/2026 23:58:01
+    </div>
+  </div>
+</div>
+
+
+<div class="banner-container">
+  <div class="banner blue">
+    <div style="font-size: 24px;">37</div>
+    <div>Total machines scanned</div>
+  </div>
+  <div class="banner red">
+    <div style="font-size: 24px;">35</div>
+    <div>No LAPS password found</div>
+  </div>
+  <div class="banner orange">
+    <div style="font-size: 24px;">5</div>
+    <div>Suspicious delegations</div>
+  </div>
+  <div class="banner">
+    <div style="font-size: 24px;">2</div>
+    <div>LAPS password found</div>
+  </div>
+</div><a class="viewlink" onclick="toggleVisibility('oudeleg')">⬇ View OU Delegations</a>
+<div id="oudeleg" style="display: none;">
+  <table>
+    <tr><th>OU</th><th>Account</th><th>Attribute</th><th>Permission</th></tr>    <tr><td>OU=Domain Controllers,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
+    <tr><td>OU=Parc,DC=info,DC=lab</td><td>INFO\GG_Hotliner</td><td>ms-Mcs-AdmPwd</td><td>WriteALL</td></tr>
+    <tr><td>OU=Parc,DC=info,DC=lab</td><td>INFO\employes</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, ExtendedRight</td></tr>
+    <tr><td>OU=RDS,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
+    <tr><td>OU=IT-Connect,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
+    <tr><td>OU=Alphorm,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
+    <tr><td>OU=T0,DC=info,DC=lab</td><td>INFO\GG_ADM_N3</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, WriteProperty</td></tr>
+    <tr><td>OU=T0,DC=info,DC=lab</td><td>INFO\rh1</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, WriteProperty</td></tr>
+</table></div><a class="viewlink" onclick="toggleVisibility('suspect')">⬇ View Suspicious ACL</a>
+<div id="suspect" style="display: none;">
+  <h2>Suspicious ACL</h2>
+  <table>
+    <tr><th>Computer</th><th>Account</th><th>Attribute</th><th>Permission</th><th>OU</th></tr>    <tr><td>PC-1</td><td>INFO\user1</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty</td><td>OU=poste,OU=Parc,DC=info,DC=lab</td></tr>
+    <tr><td>SRVADOVH</td><td>INFO\user24</td><td>ms-Mcs-AdmPwd</td><td>WriteALL</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
+    <tr><td>SRVADOVH</td><td>INFO\user50</td><td>ms-Mcs-AdmPwd</td><td>FC</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
+    <tr><td>SRVADOVH</td><td>INFO\GG_RH</td><td>ms-Mcs-AdmPwd</td><td>WriteALL</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
+    <tr><td>SRVADOVH</td><td>INFO\user6</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
+</table></div><a class="viewlink" onclick="toggleVisibility('allaccounts')">⬇ View All Delegated Accounts</a>
+<div id="allaccounts" style="display: none;">
+  <h2>All LAPS Delegated Accounts</h2>
+  <table>
+    <tr><th>Account</th><th>Type</th><th>Enabled</th><th>Created</th><th>Isadmin</th></tr>    <tr><td>Admins du domaine</td><td>Group</td><td></td><td>06/23/2020 23:24:15</td><td>True</td></tr>
+    <tr><td>mehdi</td><td>User</td><td>True</td><td>06/23/2020 23:33:49</td><td>True</td></tr>
+    <tr><td>Administrateurs de l’entreprise</td><td>Group</td><td></td><td>06/23/2020 23:24:15</td><td>True</td></tr>
+    <tr><td>GG_ADM_N3</td><td>Group</td><td></td><td>08/07/2024 22:12:17</td><td></td></tr>
+    <tr><td>rh1</td><td>User</td><td>True</td><td>08/08/2024 10:55:29</td><td></td></tr>
+    <tr><td>GG_Hotliner</td><td>Group</td><td></td><td>08/07/2024 22:12:27</td><td></td></tr>
+    <tr><td>employes</td><td>Group</td><td></td><td>02/16/2021 14:52:29</td><td></td></tr>
+    </table>
+    </div>
+
+    <hr style="margin-top: 40px; border-top: 1px solid #ccc;" />
+    <div style="font-size: 12px; color: #888; text-align: center; padding-top: 10px; padding-bottom: 30px;">
+    Developed by <strong>Dakhama Mehdi</strong> &amp; <strong>Alain Cuisner</strong> – <a href="https://github.com/dakhama-mehdi" target="_blank">GitHub</a><br />
+    Special thanks to <a href="https://www.it-connect.fr/" target="_blank">IT-Connect</a> for their valuable resources and community support.
+    </div>
+
+</body>
+</html></table></div></body></html>
