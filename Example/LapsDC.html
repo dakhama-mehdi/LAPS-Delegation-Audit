@@ -37,6 +37,20 @@ function toggleVisibility(id) {
   section.style.display = (section.style.display === "none") ? "block" : "none";
 }
 </script>
+<script>
+function filterTable(inputId, tableId) {
+  var input = document.getElementById(inputId);
+  var filter = input.value.toUpperCase();
+  var table = document.getElementById(tableId);
+  var tr = table.getElementsByTagName("tr");
+
+  for (var i = 1; i < tr.length; i++) {
+    var row = tr[i];
+    var text = row.textContent || row.innerText;
+    row.style.display = text.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+  }
+}
+</script>
 </head>
 
 <body>
@@ -49,7 +63,7 @@ function toggleVisibility(id) {
   </div>
   <div style="text-align: right; font-size: 13px; color: #666;">
     <div style="padding: 4px 8px; border-radius: 4px; display: inline-block;">
-      Report date : 01/21/2026 00:07:11
+      Report date : 01/21/2026 21:34:54
     </div>
   </div>
 </div>
@@ -61,48 +75,73 @@ function toggleVisibility(id) {
     <div>Total machines scanned</div>
   </div>
   <div class="banner red">
-    <div style="font-size: 24px;">35</div>
+    <div style="font-size: 24px;">34</div>
     <div>No LAPS password found</div>
   </div>
   <div class="banner orange">
-    <div style="font-size: 24px;">5</div>
+    <div style="font-size: 24px;">6</div>
     <div>Suspicious delegations</div>
   </div>
   <div class="banner">
-    <div style="font-size: 24px;">2</div>
+    <div style="font-size: 24px;">3</div>
     <div>LAPS password found</div>
   </div>
-</div><a class="viewlink" onclick="toggleVisibility('oudeleg')">⬇ View OU Delegations</a>
+</div><a class="viewlink" onclick="toggleVisibility('oudeleg')">⬇ View Root Delegations</a>
 <div id="oudeleg" style="display: none;">
   <table>
-    <tr><th>OU</th><th>Account</th><th>Attribute</th><th>Permission</th></tr>    <tr><td>OU=Domain Controllers,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
-    <tr><td>OU=Parc,DC=info,DC=lab</td><td>INFO\GG_Hotliner</td><td>ms-Mcs-AdmPwd</td><td>WriteALL</td></tr>
-    <tr><td>OU=Parc,DC=info,DC=lab</td><td>INFO\employes</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, ExtendedRight</td></tr>
+    <tr><th>OU</th><th>Account</th><th>Attribute</th><th>Permission</th></tr>    <tr><td>OU=Parc,DC=info,DC=lab</td><td>INFO\employes</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, ExtendedRight</td></tr>
+    <tr><td>OU=Domain Controllers,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
     <tr><td>OU=RDS,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
-    <tr><td>OU=IT-Connect,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
     <tr><td>OU=Alphorm,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
+    <tr><td>OU=IT-Connect,DC=info,DC=lab</td><td>[NA]</td><td></td><td></td></tr>
     <tr><td>OU=T0,DC=info,DC=lab</td><td>INFO\GG_ADM_N3</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, WriteProperty</td></tr>
+    <tr><td>OU=T0,DC=info,DC=lab</td><td>INFO\GG_Stagiaire</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, ExtendedRight</td></tr>
     <tr><td>OU=T0,DC=info,DC=lab</td><td>INFO\rh1</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, WriteProperty</td></tr>
 </table></div><a class="viewlink" onclick="toggleVisibility('suspect')">⬇ View Suspicious ACL</a>
 <div id="suspect" style="display: none;">
-  <h2>Suspicious ACL</h2>
-  <table>
-    <tr><th>Computer</th><th>Account</th><th>Attribute</th><th>Permission</th><th>OU</th></tr>    <tr><td>PC-1</td><td>INFO\user1</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty</td><td>OU=poste,OU=Parc,DC=info,DC=lab</td></tr>
-    <tr><td>SRVADOVH</td><td>INFO\user24</td><td>ms-Mcs-AdmPwd</td><td>WriteALL</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
-    <tr><td>SRVADOVH</td><td>INFO\user50</td><td>ms-Mcs-AdmPwd</td><td>FC</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
-    <tr><td>SRVADOVH</td><td>INFO\GG_RH</td><td>ms-Mcs-AdmPwd</td><td>WriteALL</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <h2 style="margin: 0;">Suspicious ACL</h2>
+  <input type="text" id="searchSuspect" onkeyup="filterTable('searchSuspect', 'tableSuspect')" placeholder="Search... 🔍"
+         style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; width: 240px;">
+</div>
+
+  <table id="tableSuspect">
+    <tr><th>Computer</th><th>Account</th><th>Attribute</th><th>Permission</th><th>OU</th></tr>    <tr><td>PC-LAB-2</td><td>INFO\user1</td><td>Generic All</td><td>ExtendedRight</td><td>OU=server,OU=T0,DC=info,DC=lab</td></tr>
+    <tr><td>PC-LAB-2</td><td>INFO\GG_ADM_N2</td><td>Generic All</td><td>ExtendedRight</td><td>OU=server,OU=T0,DC=info,DC=lab</td></tr>
+    <tr><td>PC-LAB-2</td><td>INFO\user8</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty, WriteProperty</td><td>OU=server,OU=T0,DC=info,DC=lab</td></tr>
+    <tr><td>PC-1</td><td>INFO\user1</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty</td><td>OU=poste,OU=Parc,DC=info,DC=lab</td></tr>
+    <tr><td>SRVADOVH</td><td>INFO\user50</td><td>Generic All</td><td>FC</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
     <tr><td>SRVADOVH</td><td>INFO\user6</td><td>ms-Mcs-AdmPwd</td><td>ReadProperty</td><td>OU=server,OU=Parc,DC=info,DC=lab</td></tr>
 </table></div><a class="viewlink" onclick="toggleVisibility('allaccounts')">⬇ View All Delegated Accounts</a>
 <div id="allaccounts" style="display: none;">
   <h2>All LAPS Delegated Accounts</h2>
   <table>
-    <tr><th>Account</th><th>Type</th><th>Enabled</th><th>Created</th><th>Isadmin</th></tr>    <tr><td>Admins du domaine</td><td>Group</td><td></td><td>06/23/2020 23:24:15</td><td>True</td></tr>
+    <tr><th>Account</th><th>Type</th><th>Enabled</th><th>Created</th><th>Is admin</th></tr>    <tr><td>Admins du domaine</td><td>Group</td><td></td><td>06/23/2020 23:24:15</td><td>True</td></tr>
     <tr><td>mehdi</td><td>User</td><td>True</td><td>06/23/2020 23:33:49</td><td>True</td></tr>
     <tr><td>Administrateurs de l’entreprise</td><td>Group</td><td></td><td>06/23/2020 23:24:15</td><td>True</td></tr>
     <tr><td>GG_ADM_N3</td><td>Group</td><td></td><td>08/07/2024 22:12:17</td><td></td></tr>
+    <tr><td>GG_Stagiaire</td><td>Group</td><td></td><td>08/08/2024 10:36:34</td><td></td></tr>
     <tr><td>rh1</td><td>User</td><td>True</td><td>08/08/2024 10:55:29</td><td></td></tr>
-    <tr><td>GG_Hotliner</td><td>Group</td><td></td><td>08/07/2024 22:12:27</td><td></td></tr>
     <tr><td>employes</td><td>Group</td><td></td><td>02/16/2021 14:52:29</td><td></td></tr>
+    <tr><td>GG_DOC_Marketing_RO</td><td>Group</td><td></td><td>08/08/2024 10:37:37</td><td></td></tr>
+</table></div><a class="viewlink" onclick="toggleVisibility('delegOU')">⬇ View OU Delegations</a>
+<div id="delegOU" style="display: none;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <h2 style="margin: 0;">All delegations by OU</h2>
+  <input type="text" id="searchDelegOU" onkeyup="filterTable('searchDelegOU', 'tableDelegOU')" placeholder="Search... 🔍"
+         style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; width: 240px;">
+</div>
+
+  <table id="tableDelegOU">
+    <tr><th>OU</th><th>Account</th><th>Rights</th><th>Attribute</th><th>Inherited</th></tr>    <tr><td>OU=server,OU=Parc,DC=info,DC=lab</td><td>INFO\employes</td><td>ReadProperty, ExtendedRight</td><td>ms-Mcs-AdmPwd</td><td>True</td></tr>
+    <tr><td>OU=poste,OU=Parc,DC=info,DC=lab</td><td>INFO\user1</td><td>ReadProperty</td><td>ms-Mcs-AdmPwd</td><td>False</td></tr>
+    <tr><td>OU=poste,OU=Parc,DC=info,DC=lab</td><td>INFO\employes</td><td>ReadProperty, ExtendedRight</td><td>ms-Mcs-AdmPwd</td><td>True</td></tr>
+    <tr><td>OU=server,OU=T0,DC=info,DC=lab</td><td>INFO\GG_RH</td><td>ReadProperty</td><td>ms-Mcs-AdmPwd</td><td>False</td></tr>
+    <tr><td>OU=server,OU=T0,DC=info,DC=lab</td><td>INFO\GG_DOC_Marketing_RO</td><td>ReadProperty</td><td>ms-Mcs-AdmPwd</td><td>False</td></tr>
+    <tr><td>OU=server,OU=T0,DC=info,DC=lab</td><td>INFO\rh1</td><td>ReadProperty</td><td>ms-Mcs-AdmPwd</td><td>False</td></tr>
+    <tr><td>OU=server,OU=T0,DC=info,DC=lab</td><td>INFO\GG_Stagiaire</td><td>ReadProperty, ExtendedRight</td><td>ms-Mcs-AdmPwd</td><td>True</td></tr>
+    <tr><td>OU=server,OU=T0,DC=info,DC=lab</td><td>INFO\GG_ADM_N3</td><td>ReadProperty, WriteProperty</td><td>ms-Mcs-AdmPwd</td><td>True</td></tr>
+    <tr><td>OU=server,OU=T0,DC=info,DC=lab</td><td>INFO\rh1</td><td>ReadProperty, WriteProperty</td><td>ms-Mcs-AdmPwd</td><td>True</td></tr>
     </table>
     </div>
 
