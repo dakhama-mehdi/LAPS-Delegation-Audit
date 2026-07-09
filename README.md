@@ -1,4 +1,4 @@
-# LAPS-Delegation-Audit : Status : in progress
+# LAPS-Delegation-Audit
 
 🛡️ PowerShell tool for detecting dangerous LAPS Legacy delegations allowing read access to LAPS Legacy passwords.
 
