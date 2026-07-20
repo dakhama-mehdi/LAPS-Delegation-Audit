@@ -1,8 +1,14 @@
 # LAPS Delegation Audit
 
-LAPS Delegation Audit is an open-source PowerShell tool designed to map Microsoft Legacy LAPS (LAPS 1) deployment and permissions across an Active Directory environment.
+LAPS Delegation Audit is an open-source PowerShell tool designed to map Microsoft Legacy LAPS (LAPS 1) deployment, permissions, and security risks across an Active Directory environment.
 
-It identifies computers using LAPS, lists the accounts and groups allowed to read local administrator passwords, detects suspicious delegations, and generates a clear and interactive HTML report.
+It identifies computers protected by LAPS, maps accounts and groups allowed to read local administrator passwords, and detects suspicious permissions applied directly to computer objects. The results are presented in a clear, interactive, and easy-to-understand HTML report.
+
+## Why?
+
+To understand the risks, attack scenarios, and detection process, read the complete technical article:
+
+[Active Directory Security: Audit LAPS Delegations and Detect ACL Vulnerabilities](https://www.it-connect.tech/active-directory-security-auditing-laps-delegations-and-detecting-acl-flaws/)
 
 ## 📸 Screenshot
 <img width="1747" height="530" alt="Image" src="https://github.com/user-attachments/assets/83b3288b-b7d9-46a1-accd-01fd212720dc" />
@@ -57,12 +63,6 @@ The generated report provides:
 - Access to an Active Directory domain
 
 Administrative privileges are not required. However, using an account with permission to read LAPS attributes provides a more complete report.
-
-## More Information
-
-A complete technical explanation and practical demonstration are available in the following article:
-
-[Active Directory Security: Audit LAPS Delegations and Detect ACL Vulnerabilities](https://www.it-connect.tech/active-directory-security-auditing-laps-delegations-and-detecting-acl-flaws/)
 
 ## Credits
 
