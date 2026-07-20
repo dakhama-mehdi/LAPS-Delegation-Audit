@@ -59,7 +59,6 @@ The generated report provides:
 ## Requirements
 
 - Windows PowerShell 5.1 or later
-- Active Directory PowerShell module
 - Access to an Active Directory domain
 
 Administrative privileges are not required. However, using an account with permission to read LAPS attributes provides a more complete report.
